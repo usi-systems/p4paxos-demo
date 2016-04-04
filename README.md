@@ -2,7 +2,7 @@
 You have to install [vagrant](https://www.vagrantup.com) before running following commands
 
 ```
-cd image-p4paxos
+cd p4paxos-demo
 vagrant up
 ```
 
