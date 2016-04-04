@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P4 Paxos</title>
+    <style>
+        div {
+            align-items: center;
+        }
+
+        input, select, textarea {
+            font-family : inherit;
+            font-size   : 100%;
+            width : 150px;
+            margin: 5;
+            box-sizing: border-box;
+        }
+        button {
+            font-family : inherit;
+            font-size   : 100%;
+            margin: 5;
+            box-sizing: border-box;
+            width : 60px;
+        }
+    </style>
+</head>
+<body>
+    <h1>P4 Paxos</h1>
+    <hr>
+    <h2>Simple Key Value store database</h2>
+    <div>
+        <input type="search" name="key" id="key" placeholder="Key">
+        <button id="get">Get</button><br>
+        <input type="search" name="value" id="value" placeholder="Value">
+        <button id="put">Put</button>
+    </div>
+<script type="text/javascript" src=./jquery.min.js></script>
+<script>
+$(function(){
+    $('#get').click(function(){
+        $.ajax({
+            type: "GET",
+            url: "/get",
+            data: {
+                key:$('#key').val()
+            },
+            success: function (msg) {
+                $('#value').val(msg); 
+            }
+        });
+    });
+
+    $('#put').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/put",
+            data: {
+                key:$('#key').val(),
+                value:$('#value').val()
+            },
+            success: function (msg) {        
+                alert(msg);
+                // $('#value').val(msg);
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
+
+

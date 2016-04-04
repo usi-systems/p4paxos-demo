@@ -1,0 +1,8 @@
+behavioral-model
+build/
+tests/
+*.pcap
+*.hdl
+*.json
+*.log
+*.pyc
