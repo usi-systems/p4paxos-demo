@@ -86,7 +86,7 @@ action handle_request() {
     register_write(instance_register, 0, paxos.instance);
 }
 
-table sequence_tbl {
+table tbl_sequence {
     reads   { paxos.msgtype : exact; }
     actions { handle_request; _nop; }
     size : 1;
@@ -97,7 +97,7 @@ control ingress {
     apply(dmac);
                                  
     if (valid(paxos)) {          /* check if we have a paxos packet */
-        apply(sequence_tbl);     /* increase paxos instance number */
+        apply(tbl_sequence);     /* increase paxos instance number */
      }
 }
 

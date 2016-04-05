@@ -107,7 +107,7 @@ def main():
         print "add mutlicast route"
         h.cmd("route add -net 224.0.0.0 netmask 224.0.0.0 eth0")
 
-    sleep(2)
+    sleep(3)
 
     for i in [2, 3, 4]:
         cmd = [args.cli, args.acceptor, str(_THRIFT_BASE_PORT + i)]
