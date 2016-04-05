@@ -76,9 +76,9 @@ control ingress {
     apply(dmac);
                                  /* TODO(check if we can split out control */
     if (valid(paxos)) {          /* check if we have a paxos packet */
-        apply(round_tbl);
+        apply(tbl_rnd);
         if (paxos_packet_metadata.round <= paxos.round) { /* if the round number is greater than one you've seen before */
-            apply(acceptor_tbl);
+            apply(tbl_acceptor);
          } else apply(drop_tbl); /* deprecated prepare/promise */
      }
 }

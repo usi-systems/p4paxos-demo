@@ -9,11 +9,6 @@
 
 #define INSTANCE_COUNT 65536 
 
-#define PAXOS_1A 1 
-#define PAXOS_1B 2 
-#define PAXOS_2A 3 
-#define PAXOS_2B 4 
-
 header_type ingress_metadata_t {
     fields {
         round : ROUND_SIZE;
@@ -23,8 +18,7 @@ header_type ingress_metadata_t {
 metadata ingress_metadata_t paxos_packet_metadata;
 
 register datapath_id {
-    width: 64;
-    static : acceptor_tbl;
+    width: DATAPATH_SIZE;
     instance_count : 1; 
 }
 
@@ -68,11 +62,11 @@ action handle_2a() {
     register_read(paxos.acceptor, datapath_id, 0);                                // paxos.acceptor = datapath_id
 }
 
-table round_tbl {
+table tbl_rnd {
     actions { read_round; }
 }
 
-table acceptor_tbl {
+table tbl_acceptor {
     reads   { paxos.msgtype : exact; }
     actions { handle_1a; handle_2a; _drop; }
 }
