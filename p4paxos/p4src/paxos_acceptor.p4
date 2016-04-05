@@ -3,7 +3,11 @@
 #include "includes/paxos_headers.p4"
 #include "includes/paxos_parser.p4"
 
-#define INSTANCE_COUNT 65536 // infer from INSTANCE_SIZE: 2^16 instances
+// INSTANCE_SIZE is the width of the instance field in the Paxos header.
+// INSTANCE_COUNT is number of entries in the registers.
+// So, INSTANCE_COUNT = 2^INSTANCE_SIZE.
+
+#define INSTANCE_COUNT 65536 
 
 #define PAXOS_1A 1 
 #define PAXOS_1B 2 
