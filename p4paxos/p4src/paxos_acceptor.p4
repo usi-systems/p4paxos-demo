@@ -1,7 +1,6 @@
-#include "includes/headers.p4"
-#include "includes/parser.p4"
 #include "includes/paxos_headers.p4"
 #include "includes/paxos_parser.p4"
+#include "l2_control.p4"
 
 // INSTANCE_SIZE is the width of the instance field in the Paxos header.
 // INSTANCE_COUNT is number of entries in the registers.
@@ -69,4 +68,16 @@ table tbl_rnd {
 table tbl_acceptor {
     reads   { paxos.msgtype : exact; }
     actions { handle_1a; handle_2a; _drop; }
+}
+
+control ingress {
+    apply(smac);
+    apply(dmac);
+    if (valid(paxos)) {          /* check if we have a paxos packet */
+        apply(tbl_rnd);
+        if (paxos_packet_metadata.round <= paxos.round) { /* if the round number is greater than one you've seen before */
+            apply(tbl_acceptor);
+         } else apply(drop_tbl); /* deprecated prepare/promise */
+     }
+
 }
