@@ -8,9 +8,8 @@ register instance_register {
     instance_count : 1;
 }
 
-//  This function read num_inst stored in the register and copy it to
-//  the current packet. Then it increased the num_inst by 1, and write
-//  it back to the register
+// This action changes a request message to a 2A message and writes the current instance number to the packet header.
+// Then, it increments the current instance number by 1 and stores the result in a register.
 action handle_request() {
     modify_field(paxos.msgtype, PAXOS_2A);
     modify_field(paxos.round, 0);	
@@ -26,8 +25,8 @@ table tbl_sequence {
 }
 
 control ingress {
-    apply(smac);                 /* l2 learning switch logic */
-    apply(dmac);
+    apply(smac);                 /* MAC learning from l2_control.p4... */
+    apply(dmac);                 /* ... not doing Paxos logic */
                                  
     if (valid(paxos)) {          /* check if we have a paxos packet */
         apply(tbl_sequence);     /* increase paxos instance number */

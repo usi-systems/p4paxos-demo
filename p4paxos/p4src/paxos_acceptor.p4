@@ -71,13 +71,13 @@ table tbl_acceptor {
 }
 
 control ingress {
-    apply(smac);
-    apply(dmac);
+    apply(smac);                 /* MAC learning, from l2_control.p4... */
+    apply(dmac);                 /* ...not doing Paxos logic */
     if (valid(paxos)) {          /* check if we have a paxos packet */
         apply(tbl_rnd);
         if (paxos_packet_metadata.round <= paxos.round) { /* if the round number is greater than one you've seen before */
             apply(tbl_acceptor);
-         } else apply(drop_tbl); /* deprecated prepare/promise */
+         } else apply(drop_tbl); /* if the round number is smaller than what we've seen before, drop the packet */
      }
 
 }
