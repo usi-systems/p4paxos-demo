@@ -30,7 +30,7 @@ mininet> xterm h4
 ```
 
 # Testing
-In the h4 terminal, execute [`scripts/test.sh`](p4paxos/bmv2/scripts/test.sh)
+In the h4 terminal, execute [`scripts/test.sh`](p4paxos/bmv2/scripts/test.sh), which is reproduced below:
 ```bash
 #!/bin/bash
 curl -X POST http://10.0.0.1:8080/put -d key="ciao" -d value="hello"
@@ -45,7 +45,7 @@ hello
 None
 ```
 
-*Success* means that the request to put (*ciao*, *hello*) pair in the KeyValue store has been succeeded. Similarly, *hello* is the value returned by the request to get the value of the key *ciao*. And *None* is the result of the request that gets a nonexistent key.
+*Success* means that the request to put the pair (*ciao*, *hello*) in the KeyValue store has succeeded. Similarly, *hello* is the value returned by the request to get the value for the key *ciao*. And *None* is the result of the request that gets a nonexistent key.
 
 
 Or, start Firefox web browser in h4 terminal
@@ -53,7 +53,7 @@ Or, start Firefox web browser in h4 terminal
 firefox &
 ```
 
-In the firefox browser, visit 10.0.0.1:8080, then you can try to Get or Put a (key, value) pair.
+In the firefox browser, visit 10.0.0.1:8080. Then, you can try to Get or Put a (key, value) pair.
 
 # Simulating Failures
 
@@ -80,7 +80,7 @@ and in h4's terminal, type:
 ```
 curl -X GET  http://10.0.0.1:8080/get?key="ciao"
 ```
-The request should be blocked.
+The request should fail.
 
 ## Configuration
 
